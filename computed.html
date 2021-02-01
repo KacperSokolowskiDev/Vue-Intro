@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Vue101</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Vue101 - Computed Properties</h1>
+      <age-calculator
+        v-for="person in people"
+        :person="person"
+        :key="person.name"
+      ></age-calculator>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      Vue.component("age-calculator", {
+        props: {
+          person: {
+            type: Object,
+            required: true,
+          },
+        },
+        template: `
+             <p>
+                {{person.name}} has been kicking butt for {{daysAlive}} days
+             </p>
+            `,
+        computed: {
+          //computed properties are cached if not changed and methods re-render everytime
+          daysAlive() {
+            return this.person.age * 365;
+          },
+        },
+      });
+      const app = new Vue({
+        el: "#app",
+        data: {
+          people: [
+            { name: "Kacper", age: 21 },
+            { name: "Mario", age: 38 },
+            { name: "Luigi", age: 38 },
+            { name: "Samus", age: 31 },
+            { name: "Link", age: 20 },
+            { name: "Marina", age: 32 },
+            { name: "George", age: 80 },
+          ],
+        },
+      });
+    </script>
+  </body>
+</html>
